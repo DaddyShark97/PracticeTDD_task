@@ -62,10 +62,10 @@ interface Validation {
                 }
             }
 
-            if (upperCaseLettersCountActualCount > 0 && upperCaseLettersCountActualCount < upperCaseLettersCount)
+            if (upperCaseLettersCount > 0 && upperCaseLettersCountActualCount < upperCaseLettersCount)
                 return Result.UpperCaseLettersCountInsufficient(upperCaseLettersCount)
 
-            if (lowerCaseLettersCountActualCount > 0 && lowerCaseLettersCountActualCount < lowerCaseLettersCount)
+            if (lowerCaseLettersCount > 0 && lowerCaseLettersCountActualCount < lowerCaseLettersCount)
                 return Result.LowerCaseLettersCountInsufficient(lowerCaseLettersCount)
 
             if (numbersCount > 0 && numberCountActualCount < numbersCount)
