@@ -8,7 +8,7 @@ class LotteryTest {
 
     @Test
     fun test_not_success() {
-        val list = listOf<Int>(
+        val list = listOf(
             10,
             12,
             13,
@@ -42,12 +42,10 @@ class LotteryTest {
             1111_1112,
             1009_1000
         )
-        val factory = TicketFactory.Base()
+        val lotteryValidation = LotteryValidation.Base()
         val expected = false
         list.forEach { number ->
-            val ticket: LotteryTicket = factory.ticket(number = number)
-            assertEquals(false, ticket.isFake())
-            val actual = ticket.isWinner()
+            val actual = lotteryValidation.isBingo(number = number)
             assertEquals(expected, actual)
         }
     }
@@ -89,19 +87,17 @@ class LotteryTest {
             4444_0907,
             4444_5551,
         )
-        val factory = TicketFactory.Base()
+        val lotteryValidation = LotteryValidation.Base()
         val expected = true
         list.forEach { number ->
-            val ticket: LotteryTicket = factory.ticket(number = number)
-            assertEquals(false, ticket.isFake())
-            val actual = ticket.isWinner()
+            val actual = lotteryValidation.isBingo(number = number)
             assertEquals(expected, actual)
         }
     }
 
     @Test
     fun test_fake() {
-        val factory = TicketFactory.Base()
+        val lotteryValidation = LotteryValidation.Base()
         val list = listOf(
             0,
             1,
@@ -134,9 +130,14 @@ class LotteryTest {
             1234567,
             123456789
         )
+        var count = 0
         list.forEach { number ->
-            val actual: LotteryTicket = factory.ticket(number = number)
-            assertEquals(true, actual.isFake())
+            try {
+                lotteryValidation.isBingo(number = number)
+            } catch (e: Exception) {
+                count++
+            }
         }
+        assertEquals(list.size, count)
     }
 }
